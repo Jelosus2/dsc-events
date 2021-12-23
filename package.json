@@ -14,7 +14,7 @@
   "contributors": ["ASHUdev05"],
   "repository": {
     "type": "Github",
-    "directory": "dsc-events",
+    "directory": "dsc-functions",
     "url": "https://github.com/Jelosus2/dsc-functions"
   },
   "license": "MIT",
