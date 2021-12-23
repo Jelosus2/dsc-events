@@ -2,7 +2,7 @@
 > Manage the dsc.best events easily
 
 ## Prerequisites (Webhooks)
-Before you configure the package you need to do 2 things:
+Before you configure the package you need to do 3 things:
 1. Have your bot listed in [dsc.best](https://dsc.best/)  
 2. **Install and setup the [express](https://www.npmjs.com/package/express) and [discord.js](https://www.npmjs.com/package/discord.js) packages**
 3. Add the endpoint url in your bot's panel (https://dsc.best/dashboard/bot/YOUR-BOT-ID-HERE) of dsc.best
