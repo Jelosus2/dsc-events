@@ -23,6 +23,7 @@ class ServerCount extends EventEmitter {
 
         /**
          * The Discord Client
+         * @type {Client}
          */
         this.client = client
 

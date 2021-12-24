@@ -5,7 +5,10 @@
 - [Webhooks](https://www.npmjs.com/package/dsc-functions#webhooks)
 - [Post Server Count](https://www.npmjs.com/package/dsc-functions#post-server-count)
 
+**Its highly recommended using node v16+ for a good performance of the package**
+
 # Webhooks
+Send a message (or embed) when someone votes for your bot
 
 ## Prerequisites 
 Before you configure the package you need to do 3 things:
@@ -62,6 +65,7 @@ Client.login('YOUR-BOT-TOKEN-HERE')
 - Total Votes of your bot
 
 # Post Server Count
+Post the server count of your bot
 
 ## Prerequisites
   1. Have your bot listed in [dsc.best](https://dsc.best/)
@@ -87,6 +91,44 @@ Client.on('ready', () => {
 
 Client.login('YOUR-BOT-TOKEN-HERE')
 ```
+
+# Bot Information and Votes
+Get information and vote's information about dsc.best listed bots
+
+### In your main file
+```js
+const Discord = require('discord.js')
+const Client = new Discord.Client({
+	intents: [Discord.Intents.FLASG.GUILDS,
+	Discord.Intents.FLAGS.GUILD_MESSAGES]
+})
+const { InfoRequester } = require('dsc-functions')
+const info = new InfoRequester(Client)
+
+client.on('ready', async() => {
+	/* Information */
+	await info.getBotInfo('BOT-ID-HERE') // if you have your bot listed and want to get the info you don't need to input the id 
+	
+	console.log(`${info.name}\n${info.owners}`) // Scroll down to see what information you can get
+	
+	/* Votes */
+	await info.getVotes('BOT-ID-HERE') // if you have your bot listed and want to get the votes you don't need to input the id
+	console.log(`Votes: ${info.votes}\nVoters: ${info.voters}`)
+})
+```
+
+## Information you can request about bots
+- Avatar
+- Owners
+- Badges
+- If its certified
+- If its approved
+- Servers count
+- Shards count
+- Name
+- Short Description
+- Entire Description
+- Prefix
 
 ### Creators
 Coder: [Jelosus1](https://github.com/Jelosus2/)
