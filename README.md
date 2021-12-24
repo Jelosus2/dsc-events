@@ -1,6 +1,9 @@
 # Dsc.best Functions
 > Manage the dsc.best events easily
 
+# Support
+If you need help with the package or have any question you can join our [support server](https://discord.gg/UqUcHVhdhV)
+
 # Table of Contents
 - [Webhooks](https://github.com/Jelosus2/dsc-functions#webhooks)
 - [Post Server Count](https://github.com/Jelosus2/dsc-functions#post-server-count)
