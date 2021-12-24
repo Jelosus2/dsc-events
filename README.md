@@ -1,7 +1,13 @@
 # Dsc.best Functions
 > Manage the dsc.best events easily
 
-## Prerequisites (Webhooks)
+# Table of Contents
+- [Webhooks](https://www.npmjs.com/package/dsc-functions#webhooks)
+- [Post Server Count](https://www.npmjs.com/package/dsc-functions#post-server-count)
+
+# Webhooks
+
+## Prerequisites 
 Before you configure the package you need to do 3 things:
 1. Have your bot listed in [dsc.best](https://dsc.best/)  
 2. **Install and setup the [express](https://www.npmjs.com/package/express) and [discord.js](https://www.npmjs.com/package/discord.js) packages**
@@ -9,7 +15,7 @@ Before you configure the package you need to do 3 things:
 
 _Picture Example_
 ![](https://i.imgur.com/qMNf9lI.png) 
-## Setup (Webhooks)
+## Setup 
 ```yarn
 npm install dsc-functions --save
 ```
@@ -32,7 +38,7 @@ client.on('ready', () => {
 	console.log('Online!')
 })
 
-const dscWebhook = new WebhookAPI(Client, 'YOUR-DSC-BEST-BOT-API-TOKEN') // add the discord client and the dsc.best api token of your bot
+const dscWebhook = new WebhookAPI(Client, { ApiToken: 'YOUR-DSC-BEST-BOT-API-TOKEN' }) // add the discord client and the dsc.best api token of your bot
 dscWebhook.discordJSVersion('v12') // If you are a v13 user you don't have to write this line
 
 app.post('/endpointname', (req, res) => {
@@ -54,6 +60,33 @@ Client.login('YOUR-BOT-TOKEN-HERE')
 - User ID
 - User Avatar
 - Total Votes of your bot
+
+# Post Server Count
+
+## Prerequisites
+  1. Have your bot listed in [dsc.best](https://dsc.best/)
+
+### In your main file
+```js
+/* The server count will not be updated till the interval time ends */
+
+const Discord = require('discord.js')
+const Client = new Discord.Client({
+	intents: [Discord.Intents.FLASG.GUILDS,
+	Discord.Intents.FLAGS.GUILD_MESSAGES]
+})
+const { ServerCount } = require('dsc-functions') //import the package
+const post_server_count = new ServerCount(Client, {
+	ApiToken: 'YOUR-DSC-BEST-API-TOKEN' ,
+	Interval: 1200000 // Interval in ms to post server count, can't be less than 1200000 (20min)
+})
+
+Client.on('ready', () => {
+	post_server_count.postServerCount() // put it in the ready event
+})
+
+Client.login('YOUR-BOT-TOKEN-HERE')
+```
 
 ### Creators
 Coder: [Jelosus1](https://github.com/Jelosus2/)

@@ -1,29 +1,33 @@
 const { EventEmitter } = require('events');
+const { Client, MessageEmbed } = require('discord.js')
 
 class WebhookAPI extends EventEmitter {
     /**
-     * 
-     * @param {String} apiToken The api token of dsc.best
+     * @param {Client} client The Discord Client
+     * @param {Object} options Post option
+     * @param {String} options.ApiToken The dsc.best api key of your bot
      */
 
-    constructor(client, apiToken) {
+    constructor(client, options) {
         super();
 
         if (!client) throw new Error('The Discord Client is required')
 
-        if (!apiToken) throw new Error('The API Token is required')
-        if (typeof apiToken != 'string') throw new Error('The API Token must be a string')
+        if (!options.ApiToken) throw new Error('The API Token is required')
+        if (typeof options.ApiToken != 'string') throw new Error('The API Token must be a String')
 
         /**
          * @ The Discord Client
          */
         this.client = client
 
+        options = options || {}
+
         /**
          * The API Token
          * @type {String}
          */ 
-        this.apiToken = apiToken 
+        this.apiToken = options.ApiToken 
 
         this.version = 'v13'
     }
