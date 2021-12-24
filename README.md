@@ -4,7 +4,7 @@
 # Table of Contents
 - [Webhooks](https://github.com/Jelosus2/dsc-functions#webhooks)
 - [Post Server Count](https://github.com/Jelosus2/dsc-functions#post-server-count)
-- - [Bot Information and Votes](https://github.com/Jelosus2/dsc-functions#bot-information-and-votes)
+- [Bot Information and Votes](https://github.com/Jelosus2/dsc-functions#bot-information-and-votes)
 
 **Its highly recommended using node v16+ for a good performance of the package**
 
