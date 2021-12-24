@@ -116,6 +116,8 @@ client.on('ready', async() => {
 	await info.getVotes('BOT-ID-HERE') // if you have your bot listed and want to get the votes you don't need to input the id
 	console.log(`Votes: ${info.votes}\nVoters: ${info.voters}`)
 })
+
+Client.login('YOUR-BOT-TOKEN-HERE')
 ```
 
 ## Information you can request about bots
