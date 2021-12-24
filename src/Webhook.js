@@ -1,9 +1,8 @@
 const { EventEmitter } = require('events');
-const { MessageEmbed, Client } = require('discord.js')
 
 class WebhookAPI extends EventEmitter {
     /**
-     * @param {Client} client The Discord Client
+     * 
      * @param {String} apiToken The api token of dsc.best
      */
 
@@ -11,14 +10,12 @@ class WebhookAPI extends EventEmitter {
         super();
 
         if (!client) throw new Error('The Discord Client is required')
-        if (!(client instanceof Client)) throw new Error('This is not a discord client')
 
         if (!apiToken) throw new Error('The API Token is required')
         if (typeof apiToken != 'string') throw new Error('The API Token must be a string')
 
         /**
          * @ The Discord Client
-         * @type {Client}
          */
         this.client = client
 
@@ -65,7 +62,6 @@ class WebhookAPI extends EventEmitter {
      */
     sendWebHook(embed, channelId, reaction) {
       if (!embed) throw new Error('The embed is required')
-      if (!(embed instanceof MessageEmbed)) throw new Error('This is not an embed')
 
       if (!channelId) throw new Error('Channel id to send the embed is required')
       if (typeof channelId != 'string') throw new Error('The id must be a string')

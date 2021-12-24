@@ -1,6 +1,6 @@
 {
-  "name": "dsc-events",
-  "version": "1.0.0",
+  "name": "dsc-functions",
+  "version": "1.0.3",
   "description": "Manage the dsc.best events easily and set up them fast",
   "main": "main.js",
   "scripts": {
@@ -11,15 +11,16 @@
     "webhooks"
   ],
   "author": "Jelosus1 and ASHUdev05",
-  "contributors": ["ASHUdev05"],
+  "contributors": [
+    "ASHUdev05"
+  ],
   "repository": {
     "type": "Github",
-    "directory": "dsc-events",
-    "url": "https://github.com/Jelosus2/dsc-events"
+    "directory": "dsc-functions",
+    "url": "https://github.com/Jelosus2/dsc-functions"
   },
   "license": "MIT",
   "dependencies": {
-    "discord.js": "^13.3.1",
     "events": "^3.3.0"
   }
 }

@@ -1,8 +1,8 @@
-# Dsc.best Events
-> Manage the dsc events easily
+# Dsc.best Functions
+> Manage the dsc.best events easily
 
 ## Prerequisites (Webhooks)
-Before you configure the package you need to do 2 things:
+Before you configure the package you need to do 3 things:
 1. Have your bot listed in [dsc.best](https://dsc.best/)  
 2. **Install and setup the [express](https://www.npmjs.com/package/express) and [discord.js](https://www.npmjs.com/package/discord.js) packages**
 3. Add the endpoint url in your bot's panel (https://dsc.best/dashboard/bot/YOUR-BOT-ID-HERE) of dsc.best
@@ -11,7 +11,7 @@ _Picture Example_
 ![](https://i.imgur.com/qMNf9lI.png) 
 ## Setup (Webhooks)
 ```yarn
-npm install dsc-events --save
+npm install dsc-functions --save
 ```
 ### In your main file
 ```js
@@ -21,7 +21,7 @@ const Client = new Discord.Client({
 	Discord.Intents.FLAGS.GUILD_MESSAGES] //Only add intents if you work in v13
 })
 
-const { WebhookAPI } = require('dsc-webhooks') // import the package
+const { WebhookAPI } = require('dsc-functions') // import the package
 const express = require('express')
 const app = express()
 
