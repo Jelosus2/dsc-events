@@ -2,8 +2,9 @@
 > Manage the dsc.best events easily
 
 # Table of Contents
-- [Webhooks](https://www.npmjs.com/package/dsc-functions#webhooks)
-- [Post Server Count](https://www.npmjs.com/package/dsc-functions#post-server-count)
+- [Webhooks](https://github.com/Jelosus2/dsc-functions#webhooks)
+- [Post Server Count](https://github.com/Jelosus2/dsc-functions#post-server-count)
+- - [Bot Information and Votes](https://github.com/Jelosus2/dsc-functions#bot-information-and-votes)
 
 **Its highly recommended using node v16+ for a good performance of the package**
 
