@@ -80,7 +80,7 @@ class WebhookAPI extends EventEmitter {
        */
       const votes = this.reqParameter.body.eventData.votes
 
-      return { eventType: eventType, userId: userId, discriminator: discriminator, avatar: userAvatar, username: username, votes: votes }
+      return { userId: userId, discriminator: discriminator, avatar: userAvatar, username: username, votes: votes }
     }
 
     /**
