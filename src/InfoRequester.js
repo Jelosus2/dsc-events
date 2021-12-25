@@ -94,6 +94,20 @@ class InfoRequester extends EventEmitter {
         .catch(error => {
             return console.log('Something went wrong fetching the information, maybe this bot isn\'t listed in dsc.best')
         })
+
+        const avatar = this.avatar
+        const owners = this.owners
+        const badges = this.badges
+        const certified = this.isCertified
+        const approved = this.isApproved
+        const servers = this.servers
+        const shards = this.shards
+        const name = this.name
+        const shortDescription = this.shortDescription
+        const description = this.description
+        const prefix = this.prefix
+
+        return { avatar: avatar, owners: owners, badges: badges, isCertified: certified, isApproved: approved, servers: servers, shards: shards, name: name, shortDescription: shortDescription, description: description, prefix: prefix }
     }
 
     async getVotes(botId) {
@@ -122,6 +136,11 @@ class InfoRequester extends EventEmitter {
         .catch(error => {
             return console.log('Something went wrong fetching the votes, maybe this bot isn\'t listed in dsc.best')
         })
+
+        const votes = this.votes
+        const voters = this.voters
+
+        return { votes: votes, voters: voters }
     }
 }
 

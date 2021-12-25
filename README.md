@@ -1,9 +1,13 @@
 # Dsc.best Functions
 > Manage the dsc.best events easily
 
+# Support
+If you need help with the package or have any question you can join our [support server](https://discord.gg/UqUcHVhdhV)
+
 # Table of Contents
 - [Webhooks](https://www.npmjs.com/package/dsc-functions#webhooks)
 - [Post Server Count](https://www.npmjs.com/package/dsc-functions#post-server-count)
+- [Bot Information and Votes](https://www.npmjs.com/package/dsc-functions#bot-information-and-votes)
 
 **Its highly recommended using node v16+ for a good performance of the package**
 
@@ -19,7 +23,7 @@ Before you configure the package you need to do 3 things:
 _Picture Example_
 ![](https://i.imgur.com/qMNf9lI.png) 
 ## Setup 
-```yarn
+```npm
 npm install dsc-functions --save
 ```
 ### In your main file
@@ -115,6 +119,8 @@ client.on('ready', async() => {
 	await info.getVotes('BOT-ID-HERE') // if you have your bot listed and want to get the votes you don't need to input the id
 	console.log(`Votes: ${info.votes}\nVoters: ${info.voters}`)
 })
+
+Client.login('YOUR-BOT-TOKEN-HERE')
 ```
 
 ## Information you can request about bots
