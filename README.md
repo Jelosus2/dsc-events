@@ -5,9 +5,9 @@
 If you need help with the package or have any question you can join our [support server](https://discord.gg/UqUcHVhdhV)
 
 # Table of Contents
-- [Webhooks](https://www.npmjs.com/package/dsc-functions#webhooks)
-- [Post Server Count](https://www.npmjs.com/package/dsc-functions#post-server-count)
-- [Bot Information and Votes](https://www.npmjs.com/package/dsc-functions#bot-information-and-votes)
+- [Webhooks](https://github.com/Jelosus2/dsc-functions#webhooks)
+- [Post Server Count](https://github.com/Jelosus2/dsc-functions#post-server-count)
+- [Bot Information and Votes](https://github.com/Jelosus2/dsc-functions#bot-information-and-votes)
 
 **Its highly recommended using node v16+ for a good performance of the package**
 
@@ -46,15 +46,18 @@ client.on('ready', () => {
 })
 
 const dscWebhook = new WebhookAPI(Client, { ApiToken: 'YOUR-DSC-BEST-BOT-API-TOKEN' }) // add the discord client and the dsc.best api token of your bot
-dscWebhook.discordJSVersion('v12') // If you are a v13 user you don't have to write this line
 
 app.post('/endpointname', (req, res) => {
-	dscWebhook.getWebhookData(req)
+	const info = dscWebhook.getWebhookData(req)
 	
 	const webhookEmbed = new Discord.MessageEmbed()
-	.setDescription(`${dscWebhook.username} has voted, and now i have ${dscWebhook.votes} votes`)
+	.setDescription(`${info.username} has voted, and now i have ${info.votes} votes`)
 	
-	dscWebhook.sendWebhook(webhookEmbed, 'Channel id', 'Reaction unicode') // Reaction is not required
+	dscWebhook.sendWebhook(webhookEmbed, {
+		channelId: '856544223801245736', // Here goes the id the channel where you want to send the embed
+		reaction: '💟', // Reaction not required (reaction unicode), support animated, normal and custom emojis
+		discordJSVersion: 'v13' //We support v12 too (if you are a v13 user this line is optional)
+	})
 })
 
 app.listen(3000, console.log('Server listening on port 3000'))
@@ -107,17 +110,17 @@ const Client = new Discord.Client({
 	Discord.Intents.FLAGS.GUILD_MESSAGES]
 })
 const { InfoRequester } = require('dsc-functions')
-const info = new InfoRequester(Client)
+const infoRequester = new InfoRequester(Client)
 
-client.on('ready', async() => {
+client.on('ready', async() => { // The methods getBotInfo and getVotes must be in a client event such as ready, messageCreate (message for v12), etc.
 	/* Information */
-	await info.getBotInfo('BOT-ID-HERE') // if you have your bot listed and want to get the info you don't need to input the id 
+	const botInfo = await info.getBotInfo('BOT-ID-HERE') // if you have your bot listed and want to get the info you don't need to input the id 
 	
-	console.log(`${info.name}\n${info.owners}`) // Scroll down to see what information you can get
+	console.log(`${botInfo.name}\n${botInfo.owners}`) // Scroll down to see what information you can get
 	
 	/* Votes */
-	await info.getVotes('BOT-ID-HERE') // if you have your bot listed and want to get the votes you don't need to input the id
-	console.log(`Votes: ${info.votes}\nVoters: ${info.voters}`)
+	const votesInfo = await info.getVotes('BOT-ID-HERE') // if you have your bot listed and want to get the votes you don't need to input the id
+	console.log(`Votes: ${votesInfo.votes}\nVoters: ${votesInfo.voters}`)
 })
 
 Client.login('YOUR-BOT-TOKEN-HERE')
