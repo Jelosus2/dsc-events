@@ -8,7 +8,7 @@ class WebhookAPI extends EventEmitter {
      * @param {String} options.ApiToken The dsc.best api key of your bot
      */
 
-    constructor(client, options) {
+    constructor(client: any, options: { ApiToken?: any; }) {
         super();
 
         if (!client) throw new Error('The Discord Client is required')
@@ -41,14 +41,14 @@ class WebhookAPI extends EventEmitter {
      * @param {String} version
      *  
      */
-    discordJSVersion(version) {
+    discordJSVersion(version: string) {
         if (!version) version = 'v13'
         if (version != 'v13' && version != 'v12') throw new Error('You must input v12 or v13')
 
         if (version) this.version = version
     }
 
-    getWebhookData(reqParameter) {
+    getWebhookData(reqParameter: any) {
       if (!reqParameter) throw new Error('The express post request parameter is required')
 
       this.reqParameter = reqParameter
@@ -97,7 +97,7 @@ class WebhookAPI extends EventEmitter {
      * @param {String} channelId The channel where vote embed will be sent
      * @param {String} reaction React to the embed (not required)
      */
-    sendWebHook(embed, channelId, reaction) {
+    sendWebHook(embed: any, channelId: any, reaction: string) {
       if (!embed) throw new Error('The embed is required')
 
       if (!channelId) throw new Error('Channel id to send the embed is required')
@@ -107,23 +107,23 @@ class WebhookAPI extends EventEmitter {
       if (!reaction) reaction = 'none'
 
       if (this.version == 'v13') {
-        this.client.channels.cache.get(channelId).send({ embeds: [embed] }).then(msg => {
+        this.client.channels.cache.get(channelId).send({ embeds: [embed] }).then((msg: { react: (arg0: any) => void; }) => {
             if (reaction == 'none') {
     
             } else {
                 msg.react(reaction)
             }
-          }).catch(error => {
+          }).catch((error: string) => {
               console.log('Something went wrong \n' + error)
           })
       } else if (this.version == 'v12') {
-        this.client.channels.cache.get(channelId).send(embed).then(msg => {
+        this.client.channels.cache.get(channelId).send(embed).then((msg: { react: (arg0: any) => void; }) => {
             if (reaction == 'none') {
     
             } else {
                 msg.react(reaction)
             }
-          }).catch(error => {
+          }).catch((error: string) => {
               console.log('Something went wrong \n' + error)
           })
       }
@@ -132,4 +132,4 @@ class WebhookAPI extends EventEmitter {
 
 } 
 
-export default WebhookAPI
+export {WebhookAPI}

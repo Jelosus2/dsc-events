@@ -10,7 +10,7 @@ class ServerCount extends EventEmitter {
      * @param {String} options.ApiToken The dsc.best api key of your bot
      * @param {Number} options.Interval The interval of time in ms you want to post server count
      */
-    constructor(client, options) {
+    constructor(client: any, options: { ApiToken?: any; Interval?: any; }) {
         super();
 
         if (!client) throw new Error('The Discord Client is required')
@@ -53,8 +53,8 @@ class ServerCount extends EventEmitter {
                     },
                     body: JSON.stringify({server_count: this.client.guilds.cache.size})
                 })
-                .then(res => res.json())
-                .then(data =>{
+                .then((res: { json: () => any; }) => res.json())
+                .then((data: { code: number; msg: any; }) =>{
                     if(data.code !== 200) return console.log(`Error: ${data.msg}`);
                     return console.log(`Status: ${data.msg}`)
                 });
@@ -67,4 +67,4 @@ class ServerCount extends EventEmitter {
 
 }
 
-export default ServerCount
+export {ServerCount}
