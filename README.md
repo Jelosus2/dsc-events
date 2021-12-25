@@ -55,7 +55,7 @@ app.post('/endpointname', (req, res) => {
 	
 	dscWebhook.sendWebhook(webhookEmbed, {
 		channelId: '856544223801245736', // Here goes the id the channel where you want to send the embed
-		reaction: '💟', // Reaction not required (reaction unicode), support animated, normal and custom emojis
+		reaction: '💟', // Reaction not required (reaction must be a reaction unicode), support animated, normal and custom emojis
 		discordJSVersion: 'v13' //We support v12 too (if you are a v13 user this line is optional)
 	})
 })
