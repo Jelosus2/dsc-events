@@ -114,12 +114,12 @@ const infoRequester = new InfoRequester(Client)
 
 client.on('ready', async() => { // The methods getBotInfo and getVotes must be in a client event such as ready, messageCreate (message for v12), etc.
 	/* Information */
-	const botInfo = await info.getBotInfo('BOT-ID-HERE') // if you have your bot listed and want to get the info you don't need to input the id 
+	const botInfo = await infoRequester.getBotInfo('BOT-ID-HERE') // if you have your bot listed and want to get the info you don't need to input the id 
 	
 	console.log(`${botInfo.name}\n${botInfo.owners}`) // Scroll down to see what information you can get
 	
 	/* Votes */
-	const votesInfo = await info.getVotes('BOT-ID-HERE') // if you have your bot listed and want to get the votes you don't need to input the id
+	const votesInfo = await infoRequester.getVotes('BOT-ID-HERE') // if you have your bot listed and want to get the votes you don't need to input the id
 	console.log(`Votes: ${votesInfo.votes}\nVoters: ${votesInfo.voters}`)
 })
 
