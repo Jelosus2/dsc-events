@@ -1,3 +1,5 @@
+# THIS README IS NOT RELATED TO BRANCH v1.3.0 PLEASE DO NOT FOLLOW THIS!
+
 This is the same repository for v1.2.1
 
 # Dsc.best Functions
