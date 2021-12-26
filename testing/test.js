@@ -14,4 +14,4 @@ client.on('ready', async() => { // bro you literally required ./main how will it
     console.log(info) 
 })    
 
-client.login('ODU1MTA0OTg1NTk1Mzc5NzUy.YMtokw.m-31K6NojuR8q9H7Pw_eY4f3Fv0') 
+client.login('') 
