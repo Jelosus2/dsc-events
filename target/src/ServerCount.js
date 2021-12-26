@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ServerCount = void 0;
-const { EventEmitter } = require('events');
-const fetch = require('node-fetch');
-const { Client } = require('discord.js');
+//const { EventEmitter } = require('events')
+//const fetch = require('node-fetch')
+//const { Client } = require('discord.js')
 class ServerCount extends EventEmitter {
     /**
      * @param {Client} client The Discord Client
@@ -66,4 +63,4 @@ class ServerCount extends EventEmitter {
         }, this.interval);
     }
 }
-exports.ServerCount = ServerCount;
+module.exports = ServerCount;

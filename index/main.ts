@@ -1,5 +1,5 @@
-import {WebhookAPI} from "./src/Webhook";
-import {ServerCount} from "./src/ServerCount";
-import {InfoRequester} from "./src/InfoRequester";
-
-export { WebhookAPI, ServerCount, InfoRequester }
+module.exports = {
+        WebhookAPI: require('./src/WebhookAPI.js'),
+        ServerCount: require('./src/ServerCount.js'),
+        InfoRequester: require('./src/InfoRequester.js'),
+}

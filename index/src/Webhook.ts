@@ -1,9 +1,9 @@
-const { EventEmitter } = require('events');
-const { Client, MessageEmbed } = require('discord.js')
+//const { EventEmitter } = require('events');
+const { MessageEmbed } = require('discord.js')
 
 class WebhookAPI extends EventEmitter {
     /**
-     * @param {Client} client The Discord Client
+     * @param {Client} client The Discord Client 
      * @param {Object} options Post option
      * @param {String} options.ApiToken The dsc.best api key of your bot
      */
@@ -34,18 +34,7 @@ class WebhookAPI extends EventEmitter {
          * The version of discord.js
          * @type {String}
          */
-        this.version = 'v13'
-    }
-
-    /**
-     * @param {String} version
-     *  
-     */
-    discordJSVersion(version: string) {
-        if (!version) version = 'v13'
-        if (version != 'v13' && version != 'v12') throw new Error('You must input v12 or v13')
-
-        if (version) this.version = version
+        this.discordJSVersion = 'v13'
     }
 
     getWebhookData(reqParameter: any) {
@@ -56,80 +45,97 @@ class WebhookAPI extends EventEmitter {
        * The Api Token of your bot
        * @type {String}
        */
-      this.verification = this.reqParameter.body.verification
-      if (!this.verification) return
-      if (this.verification != this.apiToken) throw new Error('The API Token sent by the webhook isn\'t the same as the one you introduced, please check it, maybe could be a webhook error')
+      const verification = this.reqParameter.body.verification
+      if (!verification) return
+      if (verification != this.apiToken) throw new Error('The API Token sent by the webhook isn\'t the same as the one you introduced, please check it, maybe could be a webhook error')
       /**
        * The eventType, in this case 'vote'
        * @type {String}
        */
-      this.eventType = this.reqParameter.body.eventType
-      if (this.eventType != 'vote') return
+      const eventType = this.reqParameter.body.eventType
+      if (eventType != 'vote') return
       /**
        * The id of the voter
        * @type {String}
        */
-      this.userId = this.reqParameter.body.eventData.user.id
+      const userId = this.reqParameter.body.eventData.user.id
       /**
        * The discriminator of the voter
        * @type {String}
        */
-      this.discriminator = this.reqParameter.body.eventData.user.discriminator
+      const discriminator = this.reqParameter.body.eventData.user.discriminator
       /**
        * The avatar url of the voter
        * @type {String}
        */
-      this.userAvatar = this.reqParameter.body.eventData.user.avatar
+      const userAvatar = this.reqParameter.body.eventData.user.avatar
       /**
        * The usernmae of the voter
        * @type {String}
        */
-      this.username = this.reqParameter.body.eventData.user.username
+      const username = this.reqParameter.body.eventData.user.username
       /**
        * The total votes of your bot
        * @type {Number}
        */
-      this.votes = this.reqParameter.body.eventData.votes
+      const votes = this.reqParameter.body.eventData.votes
+
+      return { userId: userId, discriminator: discriminator, avatar: userAvatar, username: username, votes: votes }
     }
 
     /**
      * @param {MessageEmbed} embed The vote webhook embed
-     * @param {String} channelId The channel where vote embed will be sent
-     * @param {String} reaction React to the embed (not required)
+     * @param {Object} options The options to send webhooks
+     * @param {String} options.channelId The id of the channel where you want to send the webhook
+     * @param {String} [options.discordJSVersion] The version of discord.js your using
+     * @param {String} [options.reaction] The reaction unicode to react in the embed
      */
-    sendWebHook(embed: any, channelId: any, reaction: string) {
+    sendWebHook(embed: any, options: { channelId?: any; reaction?: any; discordJSVersion?: any; }) {
       if (!embed) throw new Error('The embed is required')
 
-      if (!channelId) throw new Error('Channel id to send the embed is required')
-      if (typeof channelId != 'string') throw new Error('The id must be a string')
-      if (isNaN(Number(channelId))) throw new Error('The id must be only numbers')
+      if (!options.channelId) throw new Error('Channel id to send the embed is required')
+      if (typeof options.channelId != 'string') throw new Error('The id must be a string')
+      if (isNaN(Number(options.channelId))) throw new Error('The id must be only numbers')
 
-      if (!reaction) reaction = 'none'
+      if (!options.reaction) options.reaction = 'none'
 
-      if (this.version == 'v13') {
-        this.client.channels.cache.get(channelId).send({ embeds: [embed] }).then((msg: { react: (arg0: any) => void; }) => {
-            if (reaction == 'none') {
-    
-            } else {
-                msg.react(reaction)
-            }
-          }).catch((error: string) => {
-              console.log('Something went wrong \n' + error)
-          })
-      } else if (this.version == 'v12') {
-        this.client.channels.cache.get(channelId).send(embed).then((msg: { react: (arg0: any) => void; }) => {
-            if (reaction == 'none') {
-    
-            } else {
-                msg.react(reaction)
-            }
-          }).catch((error: string) => {
-              console.log('Something went wrong \n' + error)
-          })
+      if (!options.discordJSVersion) options.discordJSVersion = 'v13'
+      if (options.discordJSVersion != 'v13' && options.discordJSVersion != 'v12') throw new Error('You must input v12 or v13')
+
+      if (options.discordJSVersion) this.discordJSVersion = options.discordJSVersion
+
+      options = options || {}
+
+      if (this.discordJSVersion == 'v13') {
+          try {
+            this.client.channels.cache.get(options.channelId).send({ embeds: [embed] }).then((msg: { react: (arg0: any) => void; }) => {
+                if (options.reaction == 'none') {
+        
+                } else {
+                    msg.react(options.reaction)
+                }
+              })
+          } catch (error) {
+              console.log('Something went wrong sending the webhook, maybe the cache don\'t get the id of the channel or its wrong')
+          }
+        
+      } else if (this.discordJSVersion == 'v12') {
+          try {
+            this.client.channels.cache.get(options.channelId).send(embed).then((msg: { react: (arg0: any) => void; }) => {
+                if (options.reaction == 'none') {
+        
+                } else {
+                    msg.react(options.reaction)
+                }
+            })
+          } catch (error) {
+            console.log('Something went wrong sending the webhook, maybe the cache don\'t get the id of the channel or its wrong')
+          }
       }
 
     }
 
 } 
 
-export {WebhookAPI}
+module.exports = WebhookAPI
+  
