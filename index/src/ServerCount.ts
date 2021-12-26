@@ -1,6 +1,7 @@
-//const { EventEmitter } = require('events')
-//const fetch = require('node-fetch')
-//const { Client } = require('discord.js')
+export{}
+const { EventEmitter } = require('events')
+const fetch = require('node-fetch')
+const { Client } = require('discord.js')
 
 class ServerCount extends EventEmitter {
 

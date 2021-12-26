@@ -1,5 +1,5 @@
-//const { EventEmitter } = require('events');
-const { MessageEmbed } = require('discord.js')
+const { EventEmitter } = require('events');
+const { Client, MessageEmbed } = require('discord.js')
 
 class WebhookAPI extends EventEmitter {
     /**

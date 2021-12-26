@@ -1,3 +1,4 @@
+export{}
 const { EventEmitter } = require('events')
 const fetch = require('node-fetch')
 const { Client } = require('discord.js')
