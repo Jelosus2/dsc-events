@@ -6,9 +6,9 @@
 If you need help with the package or have any question you can join our [support server](https://discord.gg/UqUcHVhdhV)
 
 # Table of Contents
-- [Webhooks](https://www.npmjs.com/package/dsc-functions#webhooks)
-- [Post Server Count](https://www.npmjs.com/package/dsc-functions#post-server-count)
-- [Bot Information and Votes](https://www.npmjs.com/package/dsc-functions#bot-information-and-votes)
+- [Webhooks](https://github.com/Jelosus2/dsc-functions#webhooks)
+- [Post Server Count](https://github.com/Jelosus2/dsc-functions#post-server-count)
+- [Bot Information and Votes](https://github.com/Jelosus2/dsc-functions#bot-information-and-votes)
 
 **Node.js v16 is required**
 
