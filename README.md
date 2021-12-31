@@ -1,6 +1,7 @@
-# Dsc.best Functions
-> Manage the dsc.best events easily
+# Dsc.best Functions ![npm](https://img.shields.io/npm/v/dsc-functions?color=red)
+> Manage the dsc.best events easily 
 
+**_Package migrated to TypeScript_**
 # Support
 If you need help with the package or have any question you can join our [support server](https://discord.gg/UqUcHVhdhV)
 
@@ -9,7 +10,7 @@ If you need help with the package or have any question you can join our [support
 - [Post Server Count](https://www.npmjs.com/package/dsc-functions#post-server-count)
 - [Bot Information and Votes](https://www.npmjs.com/package/dsc-functions#bot-information-and-votes)
 
-**Its highly recommended using node v16+ for a good performance of the package**
+**Node.js v16 is required**
 
 # Webhooks
 Send a message (or embed) when someone votes for your bot
@@ -26,6 +27,11 @@ _Picture Example_
 ```npm
 npm install dsc-functions --save
 ```
+```js
+const { DscClient } = require('dsc-functions') // import the package
+const dscClient = new DscClient({  DiscordClient:  discordClient,  DscAPIToken:  'API-TOKEN-HERE'  })
+```
+
 ### In your main file
 ```js
 const Discord = require('discord.js');
@@ -34,7 +40,6 @@ const Client = new Discord.Client({
 	Discord.Intents.FLAGS.GUILD_MESSAGES] //Only add intents if you work in v13
 })
 
-const { WebhookAPI } = require('dsc-functions') // import the package
 const express = require('express')
 const app = express()
 
@@ -45,16 +50,17 @@ client.on('ready', () => {
 	console.log('Online!')
 })
 
-const dscWebhook = new WebhookAPI(Client, { ApiToken: 'YOUR-DSC-BEST-BOT-API-TOKEN' }) // add the discord client and the dsc.best api token of your bot
-dscWebhook.discordJSVersion('v12') // If you are a v13 user you don't have to write this line
-
 app.post('/endpointname', (req, res) => {
-	dscWebhook.getWebhookData(req)
+	const info = dscClient.webhooks(req)
 	
 	const webhookEmbed = new Discord.MessageEmbed()
-	.setDescription(`${dscWebhook.username} has voted, and now i have ${dscWebhook.votes} votes`)
+	.setDescription(`${info.eventData.user.username} has voted, and now i have ${info.eventData.votes} votes`)
 	
-	dscWebhook.sendWebhook(webhookEmbed, 'Channel id', 'Reaction unicode') // Reaction is not required
+	info.sendWebhook(webhookEmbed, {
+		channelId: '856544223801245736', // Here goes the id the channel where you want to send the embed
+		reaction: '💟', // Reaction not required (reaction must be a reaction unicode), support animated, normal and custom emojis
+		discordJSVersion: 'v13' //We support v12 too (if you are a v13 user this line is optional)
+	})
 })
 
 app.listen(3000, console.log('Server listening on port 3000'))
@@ -62,6 +68,8 @@ Client.login('YOUR-BOT-TOKEN-HERE')
 ```
 
 ## Data you can request of Webhooks
+- Verification
+- Event type
 - Username
 - Discriminator
 - User ID
@@ -83,14 +91,11 @@ const Client = new Discord.Client({
 	intents: [Discord.Intents.FLASG.GUILDS,
 	Discord.Intents.FLAGS.GUILD_MESSAGES]
 })
-const { ServerCount } = require('dsc-functions') //import the package
-const post_server_count = new ServerCount(Client, {
-	ApiToken: 'YOUR-DSC-BEST-API-TOKEN' ,
-	Interval: 1200000 // Interval in ms to post server count, can't be less than 1200000 (20min)
-})
 
-Client.on('ready', () => {
-	post_server_count.postServerCount() // put it in the ready event
+Client.on('ready', async () => {
+	await dscClient.postServerCount(1200000, true) // put it in the ready event
+	/* 1200000 its the Interval of time in ms you want to post the server count, if you don't input nothing by default will be every hour in ms */
+	/* True its to log in the console when the server count was posted, if you dont input anything will be false by default */
 })
 
 Client.login('YOUR-BOT-TOKEN-HERE')
@@ -106,18 +111,16 @@ const Client = new Discord.Client({
 	intents: [Discord.Intents.FLASG.GUILDS,
 	Discord.Intents.FLAGS.GUILD_MESSAGES]
 })
-const { InfoRequester } = require('dsc-functions')
-const info = new InfoRequester(Client)
 
-client.on('ready', async() => {
+client.on('ready', async() => { // The methods getBotInfo and getVotes must be in a client event such as ready, messageCreate (message for v12), etc.
 	/* Information */
-	await info.getBotInfo('BOT-ID-HERE') // if you have your bot listed and want to get the info you don't need to input the id 
+	const botInfo = await dscClient.getBotInfo('BOT-ID-HERE') // if you have your bot listed and want to get the info you don't need to input the id 
 	
-	console.log(`${info.name}\n${info.owners}`) // Scroll down to see what information you can get
+	console.log(`${botInfo.name}\n${botInfo.owners}`) // Scroll down to see what information you can get
 	
 	/* Votes */
-	await info.getVotes('BOT-ID-HERE') // if you have your bot listed and want to get the votes you don't need to input the id
-	console.log(`Votes: ${info.votes}\nVoters: ${info.voters}`)
+	const votesInfo = await dscClient.getBotVotes('BOT-ID-HERE') // if you have your bot listed and want to get the votes you don't need to input the id
+	console.log(`Votes: ${votesInfo.votes}\nVoters: ${votesInfo.users}`)
 })
 
 Client.login('YOUR-BOT-TOKEN-HERE')
